@@ -1,0 +1,141 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Player
+            <small>Add Player</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin/dashboard#/playerList"><i class="fa fa-dashboard"></i> Player</a></li>
+            <li class="active">Add Player</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-11">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Add Player</h3>
+                    </div>
+                        <div class="form-group">
+                        <div class="alert alert-success" ng-show="message">
+                            <strong ng-bind="message" ></strong> 
+                        </div>
+                    </div>
+                    <form method="post"  ng-submit="addPlayer(player)">
+                        <div class="box-body">
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='text' placeholder='Title' ng-model='player.title' required="" name='title' class='form-control'>
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='number' placeholder='Buy Price' ng-model='player.buy' required="" name='buy' class='form-control' min="0" step="0.01">
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='number' placeholder='Sell Price' ng-model='player.sell' required="" name='sell' class='form-control' min="0" step="0.01">
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <select name="club" class="form-control" ng-model='player.club' required="">
+                                        <option value="">Select Club</option>
+                                        <option value="{{value._id}}" ng-repeat="(key, value) in clublist">{{value.title}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <select name="position" class="form-control" ng-model='player.position' required="">
+                                        <option value="">Select Position</option>
+                                        <option value="{{value._id}}" ng-repeat="(key, value) in positionlist">{{value.title}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <select name="position_side" class="form-control" ng-model='player.position_side' required="">
+                                        <option value="">Select Position Side</option>
+                                        <option value="{{value._id}}" ng-repeat="(key, value) in position_sidelist">{{value.title}}</option>
+                                        <option  value="center">Center</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='date' placeholder='Birth Date' ng-model='player.birth_date' required="" name='birth_date' class='form-control'>
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='text' placeholder='Birth Place' ng-model='player.birth_place' required="" name='birth_place' class='form-control'>
+                                </div>
+                            </div>  
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='text' placeholder='Preferred Foot' ng-model='player.preferred_foot' required="" name='preferred_foot' class='form-control'>
+                                </div>
+                            </div>  
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='text' placeholder='Weight' ng-model='player.weight' required="" name='weight' class='form-control'>
+                                </div>
+                            </div>  
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='text' placeholder='Height' ng-model='player.height' required="" name='height' class='form-control'>
+                                </div>
+                            </div>  
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='number' placeholder='Shirt number' ng-model='player.shirt_number' required="" name='shirt_number' class='form-control'>
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <select name="country" class="form-control" ng-model='player.country' required="">
+                                        <option value="">Select Country</option>
+                                         <option value="{{value.country_name}}" ng-repeat="(key, value) in countrieslist">{{value.country_name}}</option> 
+                                    </select>
+                                </div>
+                            </div>                            
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <select name="category" class="form-control" ng-model='player.category' required="">
+                                        <option value="">Select Category</option>
+                                        <option value="{{value._id}}" ng-repeat="(key, value) in categorylist">{{value.title}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type="checkbox" ng-model="player.reserve" ng-true-value="'1'" ng-false-value="'0'" ng-checked="player.reserve==1" style="width:16px;height: 16px;"> Reserved
+
+                                </div>
+                            </div>                              
+                            <div class="col-lg-8 full-height">
+                                <div class='form-group'>
+                                <!-- <input type="file" name="file" id='file' required="required" /> -->
+                                    <!-- <input type="file" id="file" class="form-control" name="image" file-model="category.image" required=""> -->
+                                    <!-- Upload <input type="file" ng-file-select="onFileSelect($files)"> -->
+Upload image <input type="file" id="player_image" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg" class="form-control">
+<span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
+<img data-ng-src="uploadedImage" data-ng-if="uploadedImage">                                    
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-8">
+                                <input type="submit" value="Publish Player" name="submit" class="btn btn-success pull-right">                               
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

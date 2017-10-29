@@ -1,0 +1,124 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Page
+            <small>List</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+            <li><a href="#">Page</a></li>
+            <li class="active">Page List</li>
+        </ol>
+    </section>
+    <div class="form-group">
+        <div class="alert alert-success" ng-show="del">                        
+            <strong ng-bind="del" ></strong>                                 
+        </div>
+    </div>
+
+
+        <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+
+
+
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Page List</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Page no.</th>
+                                    <th>Page Name</th>
+                                    <th>Page Design</th>
+                                    <th>Created</th>
+                                    <th>Edit</th>
+                                    <th>View</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr ng-repeat='post in posts track by $index'>
+
+                                    <td ng-class="'{{post._id}}'">{{$index + 1}}</td>           
+                                    <td ng-class="'{{post._id}}'">{{post.title}}</td>   
+                                    <!--td ng-class="'{{post._id}}'">{{post.design}}</td-->  
+                                    <td ng-class="'{{post._id}}'">{{post.description.substr(0, 140)}}</td>
+                                    <td ng-class="'{{post._id}}'">{{post.created_at | date}}</td>      
+                                    <td ng-class="'{{post._id}}'">
+                                        <a ui-sref="editPage({paraml:post._id})">
+                                            <i class="fa fa-edit"></i>Edit</a></td>  
+
+                                    <td ng-class="'{{post._id}}'" ng-click='setActive(post)' style="cursor: pointer">
+
+                                        View</td> 
+                                    <td ng-click="deletepost(post._id)" ng-class="'{{post._id}}'" style="cursor: pointer">
+
+                                        Delete</td>  
+
+                                </tr>   
+
+                            </tbody>
+                            
+                        </table>
+                    </div>
+
+                    <div class='col-sm-12 full-height'>
+                        <div ng-show="activePost.title">
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="box">
+                                        <div class="box-header">
+                                            <h3 class="box-title">Single data</h3>
+
+
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body table-responsive no-padding">
+                                            <table class="table table-hover">
+                                                <tr>
+                                                    <th>Fields</th>
+                                                    <th>Data</th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Page Name</td>
+                                                    <td>{{activePost.title}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Page Description</td>
+                                                    <td>{{activePost.description}}</td>
+                                                </tr>
+												
+												<tr>
+                                                    <td>Page design</td>
+                                                    <td>{{activePost.design}}</td>
+                                                </tr>
+                                                
+                                            </table>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                    <!-- /.box -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>

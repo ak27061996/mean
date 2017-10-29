@@ -1,0 +1,97 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <small>Add Product</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin/dashboard#/userList"><i class="fa fa-dashboard"></i> Product</a></li>
+            <li class="active">Add Product</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-11">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Add Product</h3>
+                    </div>
+                        <!--div class="form-group">
+                        <div class="alert alert-success" ng-show="message">
+                            <strong ng-bind="message" ></strong> 
+                        </div>
+                    </div-->
+                    <form method="post"  ng-submit="addPost(post)">
+                        <div class="box-body">
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='text' placeholder='Product Name' ng-model='post.title' required="" name='title' class='form-control'>
+                                </div>
+                            </div>
+
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='text' placeholder='Product price' ng-model='post.price' required="" name='price' class='form-control'>
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='text' placeholder='Product Colour' ng-model='post.attr' required="" name='attr' class='form-control'>
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='text' placeholder='Product Discount' ng-model='post.discount' required="" name='Discount' class='form-control'>
+                                </div>
+                            </div>
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <input type='text' placeholder='Product Condition' ng-model='post.condition' required="" name='condition' class='form-control'>
+                                </div>
+                            </div>
+
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+								
+								
+								<!--input type='text' placeholder='Category' ng-model='post.slug' required="" name='slug' class='form-control'-->
+                                 <select name="select Category" ng-model="post.cat_id" style="width:100%" >
+                                     <option ng-repeat="cat in categoryList" value="{{cat._id}}" >{{cat._id}}</option>
+                                     <!--div ng-repeat="cat in categoryList" value="{{cat._id}}" >{{cat._id}}</div-->  
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 full-height">
+                                <div class='form-group'>
+                                    <textarea required="" class="form-control full-height" id="pad" ng-model='post.description' name="description" placeholder='Write Product Specification'></textarea>
+                                    <div class="col-md-6 full-height" id="markdown">
+                                        <div btf-markdown='post.description'></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                                                         
+                            <div class="col-lg-8 full-height">
+                                <div class='form-group'>
+                                <!-- <input type="file" name="file" id='file' required="required" /> -->
+                                    <!-- <input type="file" id="file" class="form-control" name="image" file-model="category.image" required=""> -->
+                                    <!-- Upload <input type="file" ng-file-select="onFileSelect($files)"> -->
+                                 Upload image <input type="file" id="product_image" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg" class="form-control"  multiple  >
+                                <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
+                                <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">                                    
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-lg-8">
+                                <input type="submit" value="Publish Post" name="submit" class="btn btn-success pull-right">                               
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
