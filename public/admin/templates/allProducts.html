@@ -38,7 +38,8 @@
                                     
                                     <!--input type='text' placeholder='Category' ng-model='post.slug' required="" name='slug' class='form-control'-->
                                      <select name="select Category" ng-model="mycat" style="width:100%" >
-                                         <option ng-repeat="cat in categoryList" value="{{cat._id}}" >{{cat._id}}</option>
+                                            <option value="" default selected>Select Category</option>
+                                         <option ng-repeat="cat in categoryList" value="{{cat._id}}" >{{cat.title}}</option>
                                      </select>
                                     </div>
                                 </div>
@@ -133,9 +134,16 @@
                                                     <td>{{activePost.cat_id}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Image</td>
-                                                    <td><img ng-src="uploads/products/{{activePost.product_image}}" style="width:200px;height:300px;" ></img></td> 
+                                                    <td>Images</td>
+                                                    
+                                                        <td>
+                                                                <div ng-repeat="image in activePost.product_image">
+                                                        <img src="uploads/products/{{image}}" alt="">
+                                                    </div>
+                                                        </td>
+                                                 
                                                     <!--img ng-src="{{activePost.product_image}}"></img-->
+
                                                     
                                                 </tr>
                                                 

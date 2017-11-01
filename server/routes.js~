@@ -2,6 +2,7 @@
         path = require('path'),
         User = require('./models/user'),
         Category = require('./models/categories'),
+         Type = require('./models/types'),
         Product = require('./models/products'),
         Page = require('./models/pages'),
         Order = require('./models/orders'),
@@ -49,6 +50,7 @@ module.exports = function(app, passport) {
  
     require('./api/users')(apiRouter);
     require('./api/categories')(apiRouter);
+    require('./api/types')(apiRouter);
     require('./api/products')(apiRouter);  
     require('./api/pages')(apiRouter); 
    require('./api/orders')(apiRouter);

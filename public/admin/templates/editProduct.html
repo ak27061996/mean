@@ -63,7 +63,7 @@
                             
                             <div class="col-lg-8 full-height">
                                 <div class='form-group'>
-                                 Upload image <input type="file" id="product_image" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg" class="form-control">
+                                 Upload image <input type="file" id="product_image" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg" class="form-control" multiple>
                                 <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
                                 <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">                                    
                                 </div>
@@ -77,7 +77,7 @@
                                 <input type='hidden' placeholder='blog' ng-model='post.id' name='id' class='form-control'>
                            </div>
                             <div class="col-lg-8">
-                                <div class='btn btn-success pull-right' ng-click='editPost()'>Publish Post</div>                               
+                                <div class='btn btn-success pull-right' ng-click='editPost()'>Submit</div>                               
                             </div>
                         </div>
                 </div>

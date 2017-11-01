@@ -34,7 +34,8 @@ module.exports = function(apiRouter){
 		post.cat_id = req.body.cat_id;
 		post.description = req.body.description;
  		post.save(function(err, post){
-			if(err) res.send(err);
+			console.log("image error="); console.log(post);
+      if(err) res.send(err);
 				res.json(post.id);
 			})
 	});
@@ -141,6 +142,10 @@ console.log(destPath);
                     if (err)
                         res.send(err);
                     //product.product_image = imageName;
+                    
+                    
+                    
+                    
                     //*********************my code for array insert ********************************
                         product.product_image.push(imageName);
                     console.log("u r in  copy");
@@ -151,6 +156,7 @@ console.log(destPath);
                
 			//});   
                //*****************************************  
+                    
                     product.save(function(err) {
                         if (err)
                             res.send(err);
@@ -175,19 +181,23 @@ console.log(fields._id);
                 res.send(err);
 
             console.log(imageName);
+            console.log( product.product_image.length);
+           
+            //product.product_image = imageName;
 
-            product.product_image = imageName;
+
         //***********code for array***********
            product.product_image.push(imageName); 
            //product.arr_image.insertOne(imageName,function(err){if(err) res.send(err);});
             
      //  *******************************
 
+
             product.save(function(err) {
                 if (err)
                     res.send(err);
 
-
+           
                 console.log("yes image saved..");
                  // alert("yes updated !!!");   
                 if(fields.action == 'update')

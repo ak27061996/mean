@@ -14,11 +14,12 @@ productsModule.service('Product', function($http) {
 
        onFileSelect : function(image, id, action) {
 
-            if (angular.isArray(image)) {
+           /* if (angular.isArray(image)) {
                 console.log(image[0]);
+                console.log("in is array_file   " +image);
                 image = image[0];
-            }
-
+            }*/
+             //console.log("in onselect_file   " +image);
             var fd = new FormData();
             //Take the first selected file
             fd.append("file", image);

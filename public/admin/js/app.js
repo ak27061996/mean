@@ -6,7 +6,8 @@ var adminApp = angular.module('fwrk.admin', [
 	'fwrk.users',
 	'fwrk.categories',
 	'fwrk.orders',
-	'fwrk.pages'
+	'fwrk.pages',
+	'fwrk.types'
 
 ]);
 
@@ -152,6 +153,57 @@ adminApp.config(function($stateProvider, $urlRouterProvider){
 			templateUrl: '/admin/templates/editPage.html',
 			controller: 'editPageCtrl'
 		})
-
 		
+		
+		
+		.state('addType', {
+			url: '/addType',
+			templateUrl: '/admin/templates/addType.html',
+			controller: 'addTypeCtrl'   
+		})
+		
+		
+			.state('TypeList', {
+			url: '/TypeList',
+			templateUrl: '/admin/templates/allTypes.html',
+			resolve: {
+				typeList: function(Type){
+					return Type.all().then(function(data){
+						return data;
+					});
+				}
+			},
+			controller: 'TypeListCtrl'
+		})
+		
+		
+		.state('editType', {
+			url: '/editType/:paraml',
+			templateUrl: '/admin/templates/editType.html',
+			controller: 'editTypeCtrl'
+		})   
+		
+		
+				
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
