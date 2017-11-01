@@ -73,6 +73,7 @@ get_cat: function() {
 
 
         add: function(newPost) {
+            console.log(newPost);console.log("mode");
             return $http({
                 method: 'post',
                 url: '/api/products',

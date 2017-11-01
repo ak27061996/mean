@@ -14,9 +14,23 @@ module.exports = function(apiRouter){
 	// add a post
 	apiRouter.post('/categories', function(req, res){
 		var post = new Category();
+		console.log(req);console.log("=req");
 		post.title = req.body.title;
 		post.slug = req.body.slug;
 		post.description = req.body.description;
+//********************************************************************
+		for(var i=0;i<req.body.subcat.length;i++){
+			post.subcat.push(req.body.subcat[i]);
+		}
+		//post.subcat=req.body.subcat;
+        //console.log(post.subcat);
+
+
+
+//****************************************************************
+
+
+
  		post.save(function(err, post){
 			if(err) res.send(err);
 				res.json(post);

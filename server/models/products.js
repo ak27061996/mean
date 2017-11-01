@@ -11,6 +11,8 @@ var postSchema = new mongoose.Schema({
       discount: { type: String },
 	
       cat_id: { type: mongoose.Schema.Types.ObjectId, required: '{PATH} is required!'},
+      subcat: { type: String },
+      
 	description: { type: String, required: '{PATH} is required!'},
       //product_image:{type: String},    
 	created_at: { type: Date, default: Date.now },

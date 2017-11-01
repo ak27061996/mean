@@ -59,11 +59,27 @@
 								<!--input type='text' placeholder='Category' ng-model='post.slug' required="" name='slug' class='form-control'-->
                                  <select   name="select Category" ng-model="post.cat_id" style="width:100%" >
                                     <option value="" default selected>Select Category</option> 
-                                    <option placeholder="select Category" ng-repeat="cat in categoryList" value="{{cat._id}}" >{{cat.title}}</option>
+                                    <option  placeholder="select Category" ng-click="setval(cat)" ng-repeat="cat in categoryList" value="{{cat._id}}" >{{cat.title}}</option>
                                      <!--div ng-repeat="cat in categoryList" value="{{cat._id}}" >{{cat._id}}</div-->  
                                     </select>
                                 </div>
                             </div>
+                             
+
+                            <!--div ng-repeat="cat in categoryList" ng-if="post.cat_id==cat._id" ng-model="curr_cat" >
+                               {{cat}}
+                            </div-->
+                             
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                 <select name="select SubCategory" ng-model="post.subcat" style="width:100%" >
+                                    <option value="" default selected>Select SubCategory</option> 
+                                   <option  placeholder="select SubCategory" ng-repeat="cur in active.subcat"   >{{cur}}</option>
+                                    </select>
+                                </div>
+                            </div>
+ 
+
                             <div class="col-lg-8 full-height">
                                 <div class='form-group'>
                                     <textarea required="" class="form-control full-height" id="pad" ng-model='post.description' name="description" placeholder='Write Product Specification'></textarea>

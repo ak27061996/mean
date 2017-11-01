@@ -39,11 +39,25 @@
                                     <!--input type='text' placeholder='Category' ng-model='post.slug' required="" name='slug' class='form-control'-->
                                      <select name="select Category" ng-model="mycat" style="width:100%" >
                                             <option value="" default selected>Select Category</option>
-                                         <option ng-repeat="cat in categoryList" value="{{cat._id}}" >{{cat.title}}</option>
+                                         <option ng-repeat="cat in categoryList"  ng-click="setval(cat)"    value="{{cat._id}}" >{{cat.title}}</option>
                                      </select>
                                     </div>
                                 </div>
-                          <!--drop down menu -->
+
+
+
+                                <div class='col-lg-8'>
+                                        <div class='form-group'>
+                                        
+                                        <!--input type='text' placeholder='Category' ng-model='post.slug' required="" name='slug' class='form-control'-->
+                                         <select name="select SubCategory" ng-model="mysubcat" style="width:100%" >
+                                                <option value="" default selected>Select SubCategory</option>
+                                             <option ng-repeat="subcat in active.subcat" value="{{subcat}}" >{{subcat}}</option>
+                                         </select>
+                                        </div>
+                                    </div>  
+
+                          <!--drop down menu end -->
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -58,7 +72,7 @@
                             </thead>
                             <tbody>
 
-                                <tr ng-repeat='post in posts track by $index' ng-if="post.cat_id==mycat">
+                                <tr ng-repeat='post in posts track by $index' ng-if="post.cat_id==mycat&&mysubcat==post.subcat">
 
                                     <td ng-class="'{{post._id}}'">{{$index + 1}}</td>           
                                     <td ng-class="'{{post._id}}'">{{post.title}}</td>     
@@ -131,7 +145,7 @@
 												
 												<tr>
                                                     <td>Category</td>
-                                                    <td>{{activePost.cat_id}}</td>
+                                                    <td>{{active.title}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Images</td>

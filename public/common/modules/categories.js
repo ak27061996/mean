@@ -10,6 +10,7 @@ categoriesModule.service('Category', function($http) {
             });
         },
         add: function(newPost) {
+            console.log(newPost);console.log(newPost.subcat.length); console.log("=module data");
             return $http({
                 method: 'post',
                 url: '/api/categories',

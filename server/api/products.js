@@ -25,13 +25,14 @@ module.exports = function(apiRouter){
 	apiRouter.post('/products', function(req, res){
 		var post = new Product();
 		post.title = req.body.title;
-
+ //console.log(req);console.log("dadsf");
 		post.price = req.body.price;
 		post.attr = req.body.attr;
 		post.discount = req.body.discount;
 		post.condition = req.body.condition; 
        
 		post.cat_id = req.body.cat_id;
+    post.subcat = req.body.subcat;
 		post.description = req.body.description;
  		post.save(function(err, post){
 			console.log("image error="); console.log(post);

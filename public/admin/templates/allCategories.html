@@ -106,7 +106,14 @@
                                                     <td>Description</td>
                                                     <td>{{activePost.description}}</td>
                                                 </tr>
-                                                
+                                                <tr>
+                                                    <td>SubCategory</td>
+                                                    <td>
+                                                    <div ng-repeat="i in activePost.subcat " >
+                                                        {{i}}
+                                                    </div>
+                                                    </td>
+                                                </tr>
                                             </table>
                                         </div>
                                         <!-- /.box-body -->

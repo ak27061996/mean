@@ -35,6 +35,28 @@
                                     <input type='text' placeholder='Slug' ng-model='post.slug' required="" name='slug' class='form-control'>
                                 </div>
                             </div>
+                            <!-- my code -->
+                            <div class='col-lg-8'>
+                                    <div class='form-group' ng-repeat="i in [] | range:catnum" >
+                                        <input type='text' placeholder='SubCategory' ng-model='post.subcat[i]' required="" name='post.subcat' class='form-control'>
+                                    </div>
+                                </div>
+
+                            <div class='col-lg-8'>
+                                <div class='form-group'>
+                                    <span ng-click="countfn()" >
+                                            <a href="#" class="btn btn-info btn-lg" style="color:green">
+                                                    <span class="glyphicon glyphicon-plus-sign"></span> Add SubCategory
+                                                  </a>
+                                    </span>
+                                    <!--input type='text' placeholder='number of subcategory' ng-model='catnum' required="" name='catnum' class='form-control'-->
+                                </div>
+                            </div>
+                            
+                            <!-- ***********************-->
+                           
+
+
                             <div class="col-lg-8 full-height">
                                 <div class='form-group'>
                                     <textarea required="" class="form-control full-height" id="pad" ng-model='post.description' name="description" placeholder='Write your description'></textarea>

@@ -116,12 +116,33 @@ adminApp.controller('editUserCtrl', function($scope, Users, $stateParams) {
 
 adminApp.controller('addCategoryCtrl', function($scope,Category) {
     $scope.post={};
+    $scope.catnum=1;
+    //$scope.countfn();
+    $scope.countfn = function() {
+        $scope.catnum ++; 
+        console.log($scope.catnum);
+    }
+
     $scope.addPost = function() {
         console.log(this.post);
         $scope.newPost = {};
+        $scope.newPost.subcat=[];
         $scope.newPost.title = this.post.title;
         $scope.newPost.slug = this.post.slug;
         $scope.newPost.description = this.post.description;
+//       ******************subcat*********
+            // console.log("werwerwerwerwerwerwrwe"); console.log($scope.catnum);
+            for(var i=1;i<$scope.catnum;i++){
+            	$scope.newPost.subcat.push(this.post.subcat[i]);
+                 console.log(i-Number(1));
+                 console.log($scope.newPost.subcat[i-Number(1)]); 
+            }
+
+//***********************************
+
+
+        
+
         Category.add($scope.newPost).then(function(res) {
             console.log(res);
             $scope.message="Category Added ";
@@ -208,6 +229,12 @@ adminApp.controller('ProductListCtrl',function($scope,productList,Product) {
             $scope.categoryList= res;
         }
     });
+
+    $scope.active = false;
+    $scope.setval = function(cate) {
+        $scope.active = cate;
+        console.log($scope.active);
+    }
 
 //******************************************
 
@@ -362,6 +389,7 @@ if (res) {
 
 adminApp.controller('addProductCtrl', function($scope,Product) {
     $scope.post={};
+    //$scope.curr_cat={};
     $scope.categoryList={};
 
     Product.get_cat().then(function(res) {
@@ -372,8 +400,15 @@ adminApp.controller('addProductCtrl', function($scope,Product) {
             $scope.categoryList= res;
         }
     });
+     
 
+     $scope.active = false;
+    $scope.setval = function(cate) {
+        $scope.active = cate;
+        console.log($scope.active);
+    }
 
+ 
       //$scope.post.price=1;
     $scope.addPost = function() {
         console.log(this.post);
@@ -389,8 +424,13 @@ adminApp.controller('addProductCtrl', function($scope,Product) {
        // $scope.i=0;
 
         $scope.newPost.cat_id = this.post.cat_id;
+        //$scope.curr_post=this.post.cat_id;
+
+         $scope.newPost.subcat = this.post.subcat;
+                console.log("subcat=" +$scope.newPost.subcat);
         $scope.newPost.description = this.post.description;
         Product.add($scope.newPost).then(function(res) {
+        	  console.log(res); 
             console.log( "your image res "+res);
              //************   my code ************************************************
             if (res) {
