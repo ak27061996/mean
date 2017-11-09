@@ -20,15 +20,57 @@ adminApp.controller('dashboardCtrl', function($scope) {
 /**
  * AllUsersCtrl
  */
-adminApp.controller('AllUsersCtrl', function($scope, userList,Users,$location) {
+adminApp.controller('AllUsersCtrl', function($scope, userList,$rootScope,Users,$location,$interval) {
     console.log('userList')
     $scope.users = userList;
-    $scope.activePost = false;
-    $scope.setActive = function(user) {
+   // $scope.activePost = false;
+     
+     //$scope.getCurrentUser = Auth.getCurrentUser();        
+    // console.log($scope.getCurrentUser);
+     $scope.activeUser=false
+     $scope.post={};
+     var curr_id=$rootScope.currentUser._id; 
+    console.log(curr_id);
+     var c;
+    $scope.setActive = function(user,index) {
+        console.log("amildfd");
         $scope.activeUser = user;
+        c=index;
+        $scope.curr_id=curr_id; 
         console.log($scope.activeUser);
-        
+        $scope.post.id = $scope.activeUser._id;
+    }  //contain id and message
+    
+    //auto update Database
+      if(true/*$scope.activeUser!=false*/){
+       $scope.time=$interval(function() {
+            Users.all().then(function(res){
+            $scope.users=res;
+            $scope.activeUser = $scope.users[c];});
+        }, 1000);
+      }
+
+
+
+    $scope.send=function(){
+        console.log($scope.post);
+        $scope.new={};
+        $scope.new.name=$rootScope.currentUser.lastname;
+        $scope.new.curr_id=curr_id;
+       $scope.new.id=$scope.post.id;
+       $scope.new.msg=$scope.post.msg;
+       $scope.post.msg=" ";
+       Users.chatu($scope.new).then(function(res){
+       	    $scope.users=res;
+            $scope.activeUser = $scope.users[c]; 
+       	    console.log(res);
+              if(res) console.log("message sent");
+              else console.log("error");
+              
+       }); 
     }
+   
+
     $scope.deleteUser = function(id) {
         $scope.data={};
          $scope.data.id=id;
@@ -56,19 +98,33 @@ adminApp.controller('addUserCtrl',function($scope,Users){
         $scope.newUser.password = this.user.password;
         $scope.newUser.firstname = this.user.firstname;
         $scope.newUser.lastname = this.user.lastname;
-        $scope.newUser.dob = this.user.dob;
+    	$scope.newUser.dob = this.user.dob;
         $scope.newUser.role = this.user.role;
         $scope.newUser.status = this.user.status;
+        //$scope.newUser.message=[];
 
         Users.add($scope.newUser).then(function(res) {
             console.log(res);
+            //if(res)
+           // Users.sentEmail($scope.newUser);
         });
+        //**************************************
+        Users.sentEmail($scope.newUser).then(function(res){
+               console.log(res);
+             if(res)
+               console.log("your email sent");
+    });
+
+
         console.log('added')
         // Users.add($scope.newPost);
         this.user = {};
         
     }
 });
+
+
+
 /**
  * EditUsersCtrl
  */
@@ -95,7 +151,7 @@ adminApp.controller('editUserCtrl', function($scope, Users, $stateParams) {
         $scope.newPost.firstname = this.user.firstname;
         $scope.newPost.lastname = this.user.lastname;
         $scope.newPost.email = this.user.email;
-        $scope.newPost.dob = this.user.dob;
+        //$scope.newPost.dob = this.user.dob;
         $scope.newPost.role = this.user.role;
         $scope.newPost.id = this.post.id;
         Users.update($scope.newPost).then(function(res) {
@@ -311,24 +367,11 @@ adminApp.controller('editProductCtrl', function($scope, Product, $stateParams) {
 
 if (res) {
                    
-                        //var file = angular.element(document.querySelector('#product_image')).prop("files")[0];
-                            //$scope.files =[];
-                            //console.log(" file length " + file.length +" file=" +file[2]);
-                            /*for(var i=0;i<file.length;i++){
-                                  console.log(i);
-                                     console.log("image = " + file[i]); 
-                                     $scope.files.push(file[i]);
-                                      
-                               }*/
-
-                              //console.log("rerrrrrr "+ files[0]);
                                   var x=angular.element(document.querySelector('#product_image')).prop("files");
                             for(var i=0;i<x.length;i++){
 					             	var file=angular.element(document.querySelector('#product_image')).prop("files")[i];
 						            $scope.files = file;//[];
-							        //$scope.files.push(file);
-							        //console.log("files size " +$scope.files.length);
-                                    Product.onFileSelect($scope.files, res, 'add').then(function(res) {
+					                 Product.onFileSelect($scope.files, res, 'add').then(function(res) {
                                     if (res) {
                                     $scope.message=res;
                                     } else {
@@ -344,45 +387,7 @@ if (res) {
             }
 
 
-           /*           if (res) {
-
-                        var file = angular.element(document.querySelector('#product_image')).prop("files")[0];
-
-                        if(typeof file != 'undefined'){
-                            $scope.files = [];
-                            $scope.files.push(file);
-                          Product.onFileSelect($scope.files, res, 'update').then(function(res) {
-                            if (res) {
-                                $scope.message=res;
-                            } else {
-                                $scope.message=res;
-                            }
-                        });
-                      }
-                    // alert('updated ');
-            console.log("edit product updated.." + res);
-           
-                    if(typeof file != 'undefined'){
-                        $scope.message=res;
-                       // alert(res.message);
-                    }
-                    else
-                    {
-                        $scope.message="You have successfully updated product.";
-                          // alert($scope.update); 
-                    }
-                   
-            } else {
-                $scope.update = "error";
-            }*/
-         /*************************************************/
-            /*if (res) {
-                $scope.update = res.message;
-                alert(res.message);
-            } else {
-                $scope.update = "error";
-            }*/
-            // console.log(res);
+         
         });
     }
 });

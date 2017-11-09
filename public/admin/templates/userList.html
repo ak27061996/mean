@@ -54,7 +54,7 @@
                                         <a ui-sref="editUser({paraml:user._id})">
                                             <i class="fa fa-edit"></i>Edit</a></td>  
 
-                                            <td ng-class="'{{user._id}}'" ng-click='setActive(user)' style="cursor: pointer">
+                                            <td ng-class="'{{user._id}}'" ng-click='setActive(user,$index)' style="cursor: pointer">
 
                                         View</td> 
                                     <td ng-click="deleteUser(user._id)" ng-class="'{{user._id}}'" ng-show="{{user.role!='admin'}}" style="cursor: pointer">
@@ -113,7 +113,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>DOB</td>
-                                                    <td>{{activeUser.dob | date}}</td>
+                                                    <td>{{activeUser.dob }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Status</td>
@@ -124,6 +124,20 @@
                                                     <td>{{activeUser.role}}</td>
                                                 </tr>
                                             </table>
+                                            
+                                            <div ng-repeat="x in activeUser.msg_against track by $index " ng-if="x.ID==curr_id" >
+                                                <div ng-repeat="i in x.message track by $index">  
+                                                 <p style="color:blue">{{i.nickname}}</p><p style="color:darkgreen">{{i.message}}</p>{{i.updated_at}} <br>      
+                                                </div>
+                                                 
+                                            </div>  
+                                            <div class="col-lg-8">
+                                                <input type="text"  ng-model="post.msg" class="btn btn-success pull-right">                               
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <input type="submit" value="send"  class="btn btn-success pull-right" ng-click="send()">                               
+                                            </div>
+
                                         </div>
                                         <!-- /.box-body -->
                                     </div>

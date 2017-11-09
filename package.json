@@ -1,11 +1,12 @@
 {
-  "name": "fwrk",
-  "version": "0.0.1",
-  "description": "a starting point for express, angular, mongodb apps",
-  "main": "server.js",
+  "name": "messenger-get-started",
+  "version": "1.0.0",
+  "description": "Get started example for Messenger Platform",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "lint": "jshint --exclude node_modules .",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "nodejs",
@@ -16,35 +17,21 @@
     "mongodb",
     "mongoose"
   ],
-  "author": "Connor Leech",
-  "license": "MIT",
+  "author": "Facebook",
+  "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.100.0",
-    "body-parser": "^1.13.1",
-    "cookie-parser": "^1.3.5",
-    "cors": "^2.7.1",
-    "ejs": "^2.5.6",
-    "express": "^4.12.4",
-    "express-session": "^1.11.3",
-    "fs": "0.0.1-security",
-    "method-override": "^2.3.3",
-    "mongoose": "^4.0.6",
-    "multer": "^1.3.0",
-    "multer-s3": "^2.7.0",
-    "multiparty": "^4.1.3",
-    "node-uuid": "^1.4.8",
-    "nodemailer": "^2.7.2",
-    "nodemailer-smtp-transport": "^2.4.1",
-    "passport": "^0.2.2",
-    "passport-facebook": "^2.1.1",
-    "passport-google-auth": "^1.0.2",
-    "passport-google-oauth2": "^0.1.6",
-    "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^1.0.1",
-    "quickly-copy-file": "^1.0.0",
-    "sitemap": "^1.13.0"
+    "body-parser": "^1.15.0",
+    "config": "^1.20.4",
+    "ejs": "^2.4.2",
+    "express": "^4.15.2",
+    "nodemailer": "^4.3.1",
+    "request": "^2.72.0",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "angular-cli-firebase-hosting": "^0.1.0"
+  },
+  "engines": {
+    "node": "~4.1.2"
   }
 }

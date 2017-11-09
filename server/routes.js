@@ -8,6 +8,9 @@
         Order = require('./models/orders'),
         nodemailer = require('nodemailer');
 
+        var dotenv = require('dotenv'); 
+        dotenv.load();
+
         aws = require('aws-sdk'),
         multer = require('multer'),
         multerS3 = require('multer-s3'),
@@ -19,7 +22,29 @@
         router = express.Router();
 
 
+        //*********************
 
+
+//        var nodemailer = require('nodemailer');
+/*
+          var transporter = nodemailer.createTransport({
+          service: 'gmail',
+        auth: {
+              user: 'akc13568@gmail.com',
+                pass: 'chaurasiya68'
+            }
+        })*/
+          //var dotenv = require('dotenv'); 
+
+          //dotenv.load(); //load environment variables from .env into ENV (process.env).
+
+          //var sendgrid_username   = process.env.SENDGRID_USERNAME;
+          //var sendgrid_password   = process.env.SENDGRID_PASSWORD;
+
+         // var sendgrid   = require('sendgrid')(sendgrid_username, sendgrid_password);
+       // var email = new sendgrid.Email();
+
+//**********************************
         aws.config.update({
     secretAccessKey: 'X56Bws/kRhgh3DieAlQlR5d3rGk5kIal7QDRNQGQi1h',
     accessKeyId: 'AKIAI7LghghgSYS5YVXUBOBPA'
@@ -67,6 +92,7 @@ module.exports = function(app, passport) {
     //     res.render('admin/register');
     // });
     router.get('/admin/dashboard', isAdmin, function(req, res) {
+               //console.log(req.user);
         res.render('admin/dashboard', {user: req.user});
     });
     router.post('/register', function(req, res) {
@@ -148,11 +174,10 @@ module.exports = function(app, passport) {
     });
     
      router.get('/contact',function(req, res) {
-
-
         res.render('home/contact');
     });
     
+
       router.get('/blog',function(req, res) {
         res.render('home/blog')
      });
@@ -214,8 +239,9 @@ module.exports = function(app, passport) {
     });
 };
 function isAdmin(req, res, next) {
-	console.log(req.user.email);
-    if (req.isAuthenticated() && req.user.email === 'admin@admin.com') {
+	 console.log("Admin=");  console.log(req.user.email);
+     console.log(req.user.id);
+    if (req.isAuthenticated() /*&& req.user.email === 'admin@admin.com'*/) {
         console.log('cool you are an admin, carry on your way');
         next();
     } else {

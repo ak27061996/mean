@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+<body  bgcolor="aqua" border="3">
+<div ng-app="mf" ng-controller="q">
+<form name="f" >
+<style>
+input.ng-valid {
+    background-color:lightgreen;
+}
+</style>
+
+<!--div ng-app="tfa" ng-controller="tf"-->
+
+
+
+<!--table -->
+
+<table border="5" width="70%" border="5" align="center" cellspacing="2"> 
+ <tr><td colspan="2"><center><font <font  face="Courier New" size=6 ><b>Form</b></font></center></td></tr>
+<tr>
+<td>
+First Name:</td>
+<td>
+<input name="fn" ng-model="fn" required>
+<span ng-show="f.fn.$touched && f.fn.$pristine && f.fn.$invalid"><font size="3" color="red"> The name is required !
+</font></span></td></tr>
+
+
+<tr>
+<td>Last Name: </td>
+<td>
+<input name="n2" ng-model="n2" required> 
+
+	<span ng-show="f.n2.$touched &&f.n2.$invalid" >
+	<font size="3" color="red">The lastname is required !</font>
+	</span> </td></tr>
+
+
+<tr>
+<td>
+Address :</td>
+<td>
+<input name="ad" ng-model="ad" required> <span ng-show="f.ad.$touched && f.ad.$invalid" ><font size="3" color="red"> The Address is required !</font></span> </td></tr>
+
+<tr>
+<td>
+Contact No:</td>
+<td>
+<input name="cn" ng-model="cn" required> <span ng-show="f.cn.$touched && f.cn.$invalid" ><font size="3" color="red"><font size="3" color="red">The Phone number is required !</font></span> </td></tr>
+
+<!--tr>
+<td>
+EMail : </td>
+<td>
+<input name="em" ng-model="em" required> <span ng-show="f.em.$invalid.required" ><font size="3" color="red">EMail is Required !</font></span></td></tr-->
+
+<tr>
+<td>
+Date Of Birth: </td>
+<td>
+<input type="date" name="db" ng-model="db" placeholder="yyyy-mm-dd" min="2000-01-01" max="2010-12-31" required> <span ng-show="f.db.$touched && f.db.$invalid"><font size="3" color="red">DOB is incorrectly filled !</font></span></td></tr>
+
+<tr><td>
+qualification:</td>
+<td>
+<select>
+<option ng-repeat="x in qn">{{x}}</option>
+</select></td></tr>
+<tr>
+<td align="center"> 
+<input type = "file" placeholder="Click to Browse" file-model = "myFile"/></td>
+        <td align="center"> <button ng-click = "uploadFile()"> Click to upload! </button> </td></tr>
+<td>
+<tr>
+<td align="center"><input type="reset"></td>
+<td align="center">
+<input type="submit" value="Submit"
+ng-disabled="f.$invalid" >  </td>
+</table>
+
+
+
+</div>
+<!--script>
+var app = angular.module("mf", ["ngRoute"]);
+app.config(function($routeProvider) {
+    $routeProvider
+    .when("/", {
+        templateUrl : "t.html"
+    })
+    
+});
+</script-->
+<script>
+var app = angular.module('mf', []);
+app.controller('q', function($scope) {
+    $scope.qn = ["Graduate", "Post-Graduate", "Other"];
+});
+
+</script>
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
