@@ -43,6 +43,43 @@ usersModule.service('Users', function($http) {
 
 
 
+       onFileSelect : function(image, ids, action) {
+            var fd = new FormData();
+            //Take the first selected file
+            fd.append("file", image);
+            fd.append("curr_id", ids.curr_id);
+            fd.append("name", ids.name);
+            fd.append("_id", ids.id);
+            fd.append("action", action);
+            fd.append("upload_dir", 'public/admin/uploads/chats/');
+
+            // This is how I handle file types in client side
+            if (image.type !== 'image/png' && image.type !== 'image/jpeg') {
+                 alert('Only PNG and JPEG are accepted.');
+                return false;
+            }
+
+
+            // return $http.upload({
+            return $http({
+                method: 'post',
+                url: '/api/upload_image',
+                data: fd,
+                withCredentials: true,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).then(function(res) {
+                // return the new post
+                console.log("uploaded file name : ");
+                console.log(res);
+                return res.data;
+            }).catch(function(err) {
+                console.error('Something went wrong adding image!');
+                console.error(err);
+                return err;
+            });
+        },
+
 
 
         sentEmail:function(email) {

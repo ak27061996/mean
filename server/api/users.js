@@ -1,50 +1,40 @@
 var User = require('../models/user');
-//var io       = require('socket.io')(server);
 
 //fwork242@gmail.com:testing123
-//var express = require('express');
-//var http = require('http');
-//var bodyParser = require('body-parser');
-//var dotenv = require('dotenv'); 
+
+
+
+var copyFile = require('quickly-copy-file');
+var uuid = require('node-uuid'),
+    multiparty = require('multiparty'),
+    fs = require('fs');
 var nodemailer = require('nodemailer');
- //var smtpTransport = require('nodemailer-smtp-transport');
-//dotenv.load(); //load environment variables from .env into ENV (process.env).
-//var sendgrid   = require('sendgrid')("anilkumar@futureworktechnologies.com","future@123");
-// Users API
+
 module.exports = function(apiRouter,passport) {
 
 //post for email send******************************************************************************************;
 
-apiRouter.post('/emails', function(req, res) {
+   apiRouter.post('/emails', function(req, res) {
 
-
-          var transporter = nodemailer.createTransport({
+   var transporter = nodemailer.createTransport({
               service: 'gmail',
               auth: {
               user: 'fwork242@gmail.com',
-              pass: 'testing123'
-            }
-        });
-
-var mailOptions = {
+              pass: 'testing123'}  });
+   var mailOptions = {
   from: 'fwork242@gmail.com',
   to: req.body.email,//'akchaurasiya27061996@gmail.com',
   subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
-};
+  text: 'That was easy!'};
 
    transporter.sendMail(mailOptions, function(error, info){
      if (error) {
        console.log(error);
        } else {
        console.log('Email sent: ' + info.response);
-      }
-    });
-});
+      } });
+   });
 
-
-
-//*****************************
     // get all posts
     apiRouter.get('/users', function(req, res) {
         User.find({}, function(err, users) {
@@ -208,4 +198,174 @@ var mailOptions = {
                 });
             });
         });
+
+
+
+
+ apiRouter.post('/upload_image', function(req, res) {
+    
+    var form = new multiparty.Form();
+    form.parse(req, function(err, fields, files) {
+        console.log(fields);
+        console.log(fields._id);
+        console.log(fields.curr_id);
+        var file = files.file[0];
+        var contentType = file.headers['content-type'];
+        var extension = file.path.substring(file.path.lastIndexOf('.'));
+
+        var imageName = uuid.v4() + extension;
+        var destPath = fields.upload_dir + imageName;
+
+        console.log("destPath");
+        console.log(destPath);
+
+
+        var headers = {
+        'x-amz-acl': 'public-read',
+        'Content-Length': file.size,
+        'Content-Type': contentType
+        };
+          
+        copyFile(file.path, destPath, function(error) {
+          if (error){
+            console.log("error in file uploading..");
+            console.error(error);
+            }
+                User.findById({'_id': fields.curr_id}, function(err, user) {
+                    if (err)
+                        res.send(err);
+                            
+                    var ind=-1;
+                    for(var i=0 ;i<user.msg_against.length;i++){
+                        if(user.msg_against[i].ID==fields._id){
+                            ind=i;break;
+                        }
+                    }
+                    if(ind == -1){
+                    
+                    user.msg_against.push({ID:fields._id,message:({nickname:fields.name , message:imageName})});
+                    }
+                    else{
+                        console.log(user.msg_against[ind].message); 
+                        user.msg_against[ind].message.push({nickname:fields.name , message: imageName});
+                    }
+                        //product.product_image.push(imageName) 
+                    
+                    user.save(function(err) {
+                        if (err)
+                            res.send(err);
+
+                        if(fields.action == 'update')
+                        res.json("You have successfully send image");
+                        else                        
+                        res.json("You have successfully added image");
+                    });
+                    
+                });
+
+
+                User.findById({'_id': fields._id}, function(err, user1) {
+                    if (err)
+                        res.send(err);
+                    
+                    var ind=-1;
+                    for(var i=0 ;i<user1.msg_against.length;i++){
+                        if(user1.msg_against[i].ID==fields.curr_id){
+                            ind=i;break;
+                        }
+                    }
+                 if(ind == -1){
+                    //console.log(req.body.name + '.......'+ req.body.msg);
+                    user1.msg_against.push({ID:fields.curr_id,message:({nickname:fields.name , message:imageName})});
+                    }
+                    else{
+                        console.log(user1.msg_against[ind].message); 
+                        user1.msg_against[ind].message.push({nickname:fields.name , message: imageName});
+                    }
+                        //product.product_image.push(imageName) 
+                    
+                    user1.save(function(err) {
+                        if (err)
+                            res.send(err);
+
+                        if(fields.action == 'update')
+                        res.json("You have successfully send image");
+                        else                        
+                        res.json("You have successfully added image");
+                    });
+                    // return destPath;
+                     console.log('File was copied!');
+                });
+        });
+
+            console.log("fields : ");
+            console.log(fields._id);
+
+
+         User.findById({'_id': fields.curr_id}, function(err, user) {
+               if (err)
+                res.send(err);    
+                var ind=-1;
+                console.log(user);
+                for(var i=0 ;i<user.msg_against.length;i++){
+                    if(user.msg_against[i].ID==fields._id){
+                        ind=i;break;
+                    }}
+                
+                if(ind == -1){
+                 user.msg_against.push({ID:fields._id,message:({nickname:fields.name , message:imageName})});
+                }
+
+                else{
+                 console.log(user.msg_against[ind].message); 
+                  user.msg_against[ind].message.push({nickname:fields.name , message: imageName});
+                } 
+                    
+                user.save(function(err) {
+                    if (err)
+                        res.send(err);
+                });
+                    
+        });
+
+
+        User.findById({'_id': fields._id}, function(err, user1) {
+                    if (err)
+                        res.send(err);
+                    
+                    
+                    //*********************my code for array insert ********************************
+                       var ind=-1;
+                    //  user.message.push({nickname:req.body.name,message: req.body.msg});
+                    for(var i=0 ;i<user1.msg_against.length;i++){
+                        if(user1.msg_against[i].ID==fields.curr_id){
+                            ind=i;break;
+                        }
+                    }
+                    if(ind == -1){
+                        user1.msg_against.push({ID:fields._id,message:({nickname:fields.name , message:imageName})});
+                    }
+                    else{
+                        console.log(user1.msg_against[ind].message); 
+                        user1.msg_against[ind].message.push({nickname:fields.name , message: imageName});
+                    }
+                        //product.product_image.push(imageName) 
+                    
+                    user1.save(function(err) {
+                        if (err)
+                            res.send(err);
+
+                        if(fields.action == 'update')
+                        res.json("You have successfully send image");
+                        else                        
+                        res.json("You have successfully added image");
+                    });
+                    // return destPath;
+                    console.log('File was copied!');
+         });
+                 console.log("outside yes image saved..");
+
+});
+});
+
 };

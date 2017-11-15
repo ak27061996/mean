@@ -21,13 +21,13 @@ adminApp.controller('dashboardCtrl', function($scope) {
  * AllUsersCtrl
  */
 adminApp.controller('AllUsersCtrl', function($scope, userList,$rootScope,Users,$location,$interval) {
-    console.log('userList')
+    console.log('userList');
     $scope.users = userList;
    // $scope.activePost = false;
      
      //$scope.getCurrentUser = Auth.getCurrentUser();        
     // console.log($scope.getCurrentUser);
-     $scope.activeUser=false
+     $scope.activeUser=false;
      $scope.post={};
      var curr_id=$rootScope.currentUser._id; 
     console.log(curr_id);
@@ -49,7 +49,15 @@ adminApp.controller('AllUsersCtrl', function($scope, userList,$rootScope,Users,$
             $scope.activeUser = $scope.users[c];});
         }, 1000);
       }
-
+    
+      $scope.isUUID=function (s){
+        var pattern = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$', 'i');
+          var res = s.split(".");
+          console.log(res.length);
+          console.log(res[0]);
+          console.log(pattern.test(s));
+          return pattern.test(res[0]) ;
+      }
 
 
     $scope.send=function(){
@@ -60,14 +68,32 @@ adminApp.controller('AllUsersCtrl', function($scope, userList,$rootScope,Users,$
        $scope.new.id=$scope.post.id;
        $scope.new.msg=$scope.post.msg;
        $scope.post.msg=" ";
-       Users.chatu($scope.new).then(function(res){
+       if($scope.new.msg!=" "){
+         Users.chatu($scope.new).then(function(res){
        	    $scope.users=res;
             $scope.activeUser = $scope.users[c]; 
        	    console.log(res);
               if(res) console.log("message sent");
               else console.log("error");
-              
-       }); 
+         });
+      }
+
+
+         var x=angular.element(document.querySelector('#_image')).prop("files");
+            for(var i=0;i<x.length;i++){
+                var file=angular.element(document.querySelector('#_image')).prop("files")[i];
+                $scope.files = file;//[];
+                    Users.onFileSelect($scope.files, $scope.new, 'add').then(function(res) {
+                        if (res) {
+                           $scope.message=res;
+                        } else {
+                               $scope.message=res;
+                            }
+                    });
+
+                   // $scope.message=res;
+             }
+
     }
    
 

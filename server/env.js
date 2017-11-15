@@ -4,7 +4,7 @@ var path = require('path'),
 module.exports = {
 	development: {
 		rootPath: rootPath,
-		db: 'mongodb://anil:anil123@ds113835.mlab.com:13835/anil',
+		db: 'mongodb://anil:ani3214@ds113835.mlab.com:13835/anil',
 		port: process.env.PORT || 3000
 	},
 	production: {

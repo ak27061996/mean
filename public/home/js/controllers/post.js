@@ -137,7 +137,7 @@ app.controller('CareersCtrl',function ($scope, Careers) {
      // console.log(input.files[0]);
         Careers.uploadimage(input.files[0]).then(function(res) {
             console.log(res[0].location);
-            $scope.loading = false;
+            $scope.loading = false ;
             if (res) {                
                 $scope.imgshow = res[0].location;
             } 

@@ -1,3 +1,16 @@
+<style>
+        img {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            width: 150px;
+        }
+        
+        img:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+        </style>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -126,8 +139,18 @@
                                             </table>
                                             
                                             <div ng-repeat="x in activeUser.msg_against track by $index " ng-if="x.ID==curr_id" >
-                                                <div ng-repeat="i in x.message track by $index">  
-                                                 <p style="color:blue">{{i.nickname}}</p><p style="color:darkgreen">{{i.message}}</p>{{i.updated_at}} <br>      
+                                                <div ng-repeat="i in x.message track by $index">
+                                                    <div ng-if="isUUID(i.message)">  
+                                                  <p style="color:blue">{{i.nickname}}</p>
+                                                  <a target="_blank" href="uploads/chats/{{i.message}}">
+                                                  <img src="uploads/chats/{{i.message}}" alt="">
+                                                    </a>
+                                                  {{i.updated_at}}
+                                                  <br>      
+                                                </div>
+                                                <div ng-if="!isUUID(i.message)">  
+                                                        <p style="color:blue">{{i.nickname}}</p><p style="color:darkgreen">{{i.message}}</p>{{i.updated_at}} <br>      
+                                                       </div>
                                                 </div>
                                                  
                                             </div>  
@@ -135,6 +158,13 @@
                                                 <input type="text"  ng-model="post.msg" class="btn btn-success pull-right">                               
                                             </div>
                                             <div class="col-lg-8">
+                                                    <div class="col-lg-8 full-height">
+                                                            <div class='form-group'>
+                                                             Upload image <input type="file" id="_image" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg" class="form-control"  multiple  >
+                                                            <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
+                                                            <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">                                    
+                                                            </div>
+                                                        </div>
                                                 <input type="submit" value="send"  class="btn btn-success pull-right" ng-click="send()">                               
                                             </div>
 
